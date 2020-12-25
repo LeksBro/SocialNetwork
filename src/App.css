@@ -9,26 +9,4 @@
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
 }
-.Header {
-grid-area: h;
-  background-color: green;
-}
-.Nav {
-  grid-area: n;
-  background-color: silver;
-}
-.Content{
-  grid-area: c;
-  background-color: saddlebrown;
-}
-.Header img {
-  width: 95px;
-}
- .Ava {
-  width: 60px;
 
-}
-.Content img {
-  height: 100px;
-  width: 100%;
-}

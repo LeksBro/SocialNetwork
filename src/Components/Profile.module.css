@@ -1,0 +1,9 @@
+.Content{
+    grid-area: c;
+    background-color: saddlebrown;
+}
+
+.Content img {
+    height: 100px;
+    width: 100%;
+}
