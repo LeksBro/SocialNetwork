@@ -6,4 +6,11 @@
 .Content img {
     height: 100px;
     width: 100%;
+
+}
+.Ava img {
+    border-radius: 40px;
+    width: 100px;
+    height: 100px;
+
 }
