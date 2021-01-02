@@ -2,8 +2,10 @@ import React from 'react'
 
 
 type MessagePropsType = {
-message: string
+  message: string
+
 }
+
 const Message = (props: MessagePropsType) => {
 return <div> {props.message} </div>
 }
