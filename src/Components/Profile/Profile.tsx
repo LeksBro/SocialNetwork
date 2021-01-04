@@ -2,10 +2,14 @@ import React from "react";
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-const Profile = () => {
+import {PostType} from "../../index";
+export type ProfilePriosType = {
+    posts: Array<PostType>
+}
+const Profile = (props: ProfilePriosType) => {
     return <div className={s.Content}>
            < ProfileInfo />
-            < MyPosts />
+            < MyPosts posts={props.posts}/>
 
         </div>
 

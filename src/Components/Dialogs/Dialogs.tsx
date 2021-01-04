@@ -2,32 +2,18 @@ import React from "react";
 import s from './Dialogs.module.css'
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message"
-type DialogType = {
-    id:number
-    name: string
+import {DialogType, MessageType} from "../../index";
+type DialogPropsType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
 }
-type MessageType = {
-    id:number
-    message: string
-}
-const Dialogs = () => {
-    let dialogData: Array<DialogType> = [
-        {id: 1, name: 'Sasha'},
-        {id: 2, name: 'Meda'},
-        {id: 3, name: 'Victor'},
-        {id: 4, name: 'Alena'},
-        {id: 5, name: 'Dasha'},
-    ]
-    let messageData: Array<MessageType> = [
-        {id: 1, message:'i understand'},
-        {id: 2, message:'i understand you'},
-        {id: 3, message:'i see you'},
-    ]
 
-let dialogElement = dialogData.map((d) => {
+const Dialogs = (props: DialogPropsType) => {
+
+let dialogElement = props.dialogs.map((d) => {
     return < Dialog id={d.id} name={d.name} />
 } )
-    let messageElement = messageData.map((m) => {
+    let messageElement = props.messages.map((m) => {
         return < Message key={m.id} message={m.message}  />
     })
     return <div className={s.dialogs}>
