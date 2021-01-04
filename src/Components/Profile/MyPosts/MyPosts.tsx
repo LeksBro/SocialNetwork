@@ -9,12 +9,17 @@ const MyPosts = (props: ProfilePriosType) => {
     let postElement = props.posts.map((p) => {
         return < Posts message={p.message} likeCount={p.likeCount} key={p.id} />
     })
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+    let addPost = () => {
+            let text = newPostElement.current?.value
+            alert(text)
+    }
     return <div className={s.content}>
         <div className={s.block}>
             <div>
-            <textarea></textarea>
+            <textarea ref={newPostElement}></textarea>
             </div>
-            <button>AddPost</button>
+            <button onClick={() => {addPost}}>AddPost</button>
 
         </div>
         <div className={s.Posts}>
