@@ -19,7 +19,7 @@ const MyPosts = (props: ProfilePriosType) => {
             <div>
             <textarea ref={newPostElement}></textarea>
             </div>
-            <button onClick={() => {addPost}}>AddPost</button>
+            <button onClick={addPost}>AddPost</button>
 
         </div>
         <div className={s.Posts}>
