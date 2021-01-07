@@ -11,8 +11,10 @@ const MyPosts = (props: ProfilePriosType) => {
     })
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     let addPost = () => {
-            let text = newPostElement.current?.value
-            alert(text)
+        if (newPostElement.current) {
+            let text = newPostElement.current.value
+            props.addPost(text)
+        }
     }
     return <div className={s.content}>
         <div className={s.block}>

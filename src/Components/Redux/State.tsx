@@ -48,3 +48,8 @@ export let state: StateType = {
         ]
     },
 }
+export function addPost (postText: string) {
+    debugger
+   let newPost = {message:postText, likeCount: 0, id: Math.random() + 1}
+   state.profilePage.postData.push(newPost)
+}
