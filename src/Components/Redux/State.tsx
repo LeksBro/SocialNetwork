@@ -1,5 +1,7 @@
 import React from "react";
-import {rerenderEntireTree} from "../../render";
+let rerenderEntireTree = (state: StateType) => {
+
+}
 
 export type PostType = {
     message: string
@@ -51,6 +53,9 @@ export let state: StateType = {
         ]
     },
 }
+export let subscribe = (observer: (state: StateType) => void) => {
+    rerenderEntireTree =  observer
+}
 
 export function addNewPost() {
 
@@ -64,3 +69,4 @@ export function changePostText(text: string) {
     state.profilePage.newPost = text
     rerenderEntireTree(state)
 }
+
