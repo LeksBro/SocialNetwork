@@ -33,7 +33,16 @@ export type StoreType = {
     subscribe: (observer: (state: StateType) => void) => void
     getState: () => StateType
     _rerenderEntireTree: (state: StateType) => void
+    dispatch: (action: DispatchAddPostType | DispatchChangePostType ) => void
 }
+export type DispatchAddPostType = {
+    type: 'ADD-POST'
+}
+export type DispatchChangePostType = {
+    type: 'CHANGE-POST-TEXT'
+    text: string
+}
+export type ActionType = DispatchChangePostType | DispatchAddPostType
 export const store:StoreType  = {
     _state:  {
         profilePage: {
@@ -64,8 +73,26 @@ export const store:StoreType  = {
     },
     _rerenderEntireTree  (state: StateType)  {
     },
-    addNewPost () {
+    dispatch (action:ActionType ) {
+        switch (action.type) {
+            case 'ADD-POST': {
+                let newPost = {message: this._state.profilePage.newPost, likeCount: 0, id: Math.random() + 1}
+                this._state.profilePage.postData.push(newPost)
+                this._state.profilePage.newPost = ''
+                this._rerenderEntireTree(this._state)
+                break;
+            }
 
+            case 'CHANGE-POST-TEXT': {
+                this._state.profilePage.newPost = action.text
+                this._rerenderEntireTree(this._state)
+                break;
+            }
+
+        }
+    },
+
+    addNewPost () {
         let newPost = {message: this._state.profilePage.newPost, likeCount: 0, id: Math.random() + 1}
         this._state.profilePage.postData.push(newPost)
         this._state.profilePage.newPost = ''
@@ -75,6 +102,7 @@ export const store:StoreType  = {
         this._state.profilePage.newPost = text
         this._rerenderEntireTree(this._state)
     },
+
     subscribe (observer: (state: StateType) => void)  {
         this._rerenderEntireTree =  observer
     },

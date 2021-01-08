@@ -6,12 +6,12 @@ import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter} from "react-router-dom";
 import {Route} from "react-router-dom"
-import {StateType} from "./Components/Redux/State";
+import {DispatchAddPostType, DispatchChangePostType, StateType} from "./Components/Redux/State";
 
 export type StatePropsType = {
     state: StateType
-    addPost: () => void
-    changePost: (text: string) => void
+    addPost: (action: DispatchAddPostType ) => void
+    changePost: (action: DispatchChangePostType) => void
 }
 const App = (props: StatePropsType) => {
     return (

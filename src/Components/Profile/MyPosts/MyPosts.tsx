@@ -12,13 +12,13 @@ const MyPosts = (props: ProfilePriosType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
 
-            props.addPost()
+            props.addPost({type: 'ADD-POST'})
 
     }
     const changePost = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-                props.changePost(text)
+                props.changePost({type: 'CHANGE-POST-TEXT', text: text})
         }
     }
     return <div className={s.content}>
