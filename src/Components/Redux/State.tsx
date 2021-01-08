@@ -1,7 +1,5 @@
 import React from "react";
-let rerenderEntireTree = (state: StateType) => {
 
-}
 
 export type PostType = {
     message: string
@@ -28,45 +26,58 @@ export type StateType = {
     profilePage: ProfilePageType
     dialogPage: DialogPageType
 }
-
-export let state: StateType = {
-    profilePage: {
-        postData: [
-            {message: 'How are you', likeCount: 2, id: 1},
-            {message: 'hi', likeCount: 0, id: 2},
-            {message: 'good morning', likeCount: 22, id: 3},
-        ],
-        newPost: 'It-Kamasutra'
+export type StoreType = {
+    _state: StateType
+    addNewPost: () => void
+    changePostText:(text: string) => void
+    subscribe: (observer: (state: StateType) => void) => void
+    getState: () => StateType
+    _rerenderEntireTree: (state: StateType) => void
+}
+export const store:StoreType  = {
+    _state:  {
+        profilePage: {
+            postData: [
+                {message: 'How are you', likeCount: 2, id: 1},
+                {message: 'hi', likeCount: 0, id: 2},
+                {message: 'good morning', likeCount: 22, id: 3},
+            ],
+            newPost: 'It-Kamasutra'
+        },
+        dialogPage: {
+            dialogData: [
+                {id: 1, name: 'Sasha'},
+                {id: 2, name: 'Meda'},
+                {id: 3, name: 'Victor'},
+                {id: 4, name: 'Alena'},
+                {id: 5, name: 'Dasha'},
+            ],
+            messageData: [
+                {id: 1, message: 'i understand'},
+                {id: 2, message: 'i understand you'},
+                {id: 3, message: 'i see you'},
+            ]
+        },
     },
-    dialogPage: {
-        dialogData: [
-            {id: 1, name: 'Sasha'},
-            {id: 2, name: 'Meda'},
-            {id: 3, name: 'Victor'},
-            {id: 4, name: 'Alena'},
-            {id: 5, name: 'Dasha'},
-        ],
-        messageData: [
-            {id: 1, message: 'i understand'},
-            {id: 2, message: 'i understand you'},
-            {id: 3, message: 'i see you'},
-        ]
+    getState () {
+        return this._state
+    },
+    _rerenderEntireTree  (state: StateType)  {
+    },
+    addNewPost () {
+
+        let newPost = {message: this._state.profilePage.newPost, likeCount: 0, id: Math.random() + 1}
+        this._state.profilePage.postData.push(newPost)
+        this._state.profilePage.newPost = ''
+        this._rerenderEntireTree(this._state)
+    },
+    changePostText(text: string) {
+        this._state.profilePage.newPost = text
+        this._rerenderEntireTree(this._state)
+    },
+    subscribe (observer: (state: StateType) => void)  {
+        this._rerenderEntireTree =  observer
     },
 }
-export let subscribe = (observer: (state: StateType) => void) => {
-    rerenderEntireTree =  observer
-}
 
-export function addNewPost() {
-
-    let newPost = {message: state.profilePage.newPost, likeCount: 0, id: Math.random() + 1}
-    state.profilePage.postData.push(newPost)
-    state.profilePage.newPost = ''
-    rerenderEntireTree(state)
-}
-
-export function changePostText(text: string) {
-    state.profilePage.newPost = text
-    rerenderEntireTree(state)
-}
 

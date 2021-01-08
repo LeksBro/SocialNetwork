@@ -11,6 +11,7 @@ const MyPosts = (props: ProfilePriosType) => {
     })
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
+
             props.addPost()
 
     }
