@@ -20,6 +20,7 @@ export type DialogPageType = {
 }
 export type ProfilePageType = {
     postData: Array<PostType>
+    newPost: string
 }
 export type StateType = {
     profilePage: ProfilePageType
@@ -32,7 +33,8 @@ export let state: StateType = {
             {message: 'How are you', likeCount: 2, id: 1},
             {message: 'hi', likeCount: 0, id: 2},
             {message: 'good morning', likeCount: 22, id: 3},
-        ]
+        ],
+        newPost: 'It-Kamasutra'
     },
     dialogPage: {
         dialogData: [
@@ -49,9 +51,16 @@ export let state: StateType = {
         ]
     },
 }
-export function addPost (postText: string) {
 
-   let newPost = {message:postText, likeCount: 0, id: Math.random() + 1}
-   state.profilePage.postData.push(newPost)
+export function addNewPost() {
+
+    let newPost = {message: state.profilePage.newPost, likeCount: 0, id: Math.random() + 1}
+    state.profilePage.postData.push(newPost)
+    state.profilePage.newPost = ''
+    rerenderEntireTree(state)
+}
+
+export function changePostText(text: string) {
+    state.profilePage.newPost = text
     rerenderEntireTree(state)
 }

@@ -10,7 +10,8 @@ import {StateType} from "./Components/Redux/State";
 
 export type StatePropsType = {
     state: StateType
-    addPost: (postText: string) => void
+    addPost: () => void
+    changePost: (text: string) => void
 }
 const App = (props: StatePropsType) => {
     return (
@@ -19,7 +20,7 @@ const App = (props: StatePropsType) => {
                 < Header/>
                 < Navbar/>
                 <div className='App-wrapper-content'>
-                    < Route path='/profile' render={() => <Profile posts={props.state.profilePage.postData} addPost={props.addPost} />} />
+                    < Route path='/profile' render={() => <Profile posts={props.state.profilePage.postData} addPost={props.addPost} newPost={props.state.profilePage.newPost} changePost={props.changePost} />} />
                     < Route exact path='/dialogs' render={() => <Dialogs dialogs={props.state.dialogPage.dialogData} messages={props.state.dialogPage.messageData} />}/>
 
                 </div>

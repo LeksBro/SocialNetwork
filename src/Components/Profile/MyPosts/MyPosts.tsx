@@ -10,16 +10,20 @@ const MyPosts = (props: ProfilePriosType) => {
         return < Posts message={p.message} likeCount={p.likeCount} key={p.id} />
     })
     let newPostElement = React.createRef<HTMLTextAreaElement>()
-    let addPost = () => {
+    const addPost = () => {
+            props.addPost()
+
+    }
+    const changePost = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-            props.addPost(text)
+                props.changePost(text)
         }
     }
     return <div className={s.content}>
         <div className={s.block}>
             <div>
-            <textarea ref={newPostElement}></textarea>
+            <textarea onChange={changePost} value={props.newPost} ref={newPostElement}></textarea>
             </div>
             <button onClick={addPost}>AddPost</button>
 
