@@ -2,6 +2,7 @@ import React from "react";
 import s from './MyPosts.module.css'
 import Posts from "./Post/Posts";
 import {ProfilePriosType} from "../Profile";
+import {addPostAC, changePostTextAC} from "../../Redux/State";
 
 
 const MyPosts = (props: ProfilePriosType) => {
@@ -12,13 +13,13 @@ const MyPosts = (props: ProfilePriosType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
 
-            props.addPost({type: 'ADD-POST'})
+            props.dispatch(addPostAC())
 
     }
     const changePost = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-                props.changePost({type: 'CHANGE-POST-TEXT', text: text})
+                props.dispatch(changePostTextAC(text))
         }
     }
     return <div className={s.content}>

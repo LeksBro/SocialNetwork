@@ -1,12 +1,21 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message"
-import {DialogType, MessageType} from "../Redux/State";
+import {
+    addMessageAC,
+    changeMessageTextAC,
+    DialogType,
+    DispatchAddMessageType,
+    DispatchChangeMessageType,
+    MessageType
+} from "../Redux/State";
 
 type DialogPropsType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    dispatch: (action: DispatchChangeMessageType | DispatchAddMessageType) => void
+    newMessageText: string
 }
 
 const Dialogs = (props: DialogPropsType) => {
@@ -17,12 +26,25 @@ const Dialogs = (props: DialogPropsType) => {
     let messageElement = props.messages.map((m) => {
         return < Message key={m.id} message={m.message}/>
     })
+    const addMessage = () => {
+        props.dispatch(addMessageAC())
+    }
+    const changeMessageText = (event: ChangeEvent<HTMLTextAreaElement> ) => {
+            props.dispatch(changeMessageTextAC(event.currentTarget.value))
+        }
+
     return <div className={s.dialogs}>
         <div className={s.dialogItem}>
             {dialogElement}
         </div>
         <div className={s.messageItem}>
             {messageElement}
+        </div>
+        <div>
+            <div>
+            <textarea onChange={changeMessageText} value={props.newMessageText}></textarea>
+            </div>
+            <button onClick={addMessage}>Add Message</button>
         </div>
     </div>
 }

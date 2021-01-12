@@ -17,6 +17,7 @@ export type MessageType = {
 export type DialogPageType = {
     dialogData: Array<DialogType>
     messageData: Array<MessageType>
+    newMessageText: string
 }
 export type ProfilePageType = {
     postData: Array<PostType>
@@ -28,12 +29,11 @@ export type StateType = {
 }
 export type StoreType = {
     _state: StateType
-    addNewPost: () => void
-    changePostText:(text: string) => void
+
     subscribe: (observer: (state: StateType) => void) => void
     getState: () => StateType
     _rerenderEntireTree: (state: StateType) => void
-    dispatch: (action: DispatchAddPostType | DispatchChangePostType ) => void
+    dispatch: (action: ActionType ) => void
 }
 export type DispatchAddPostType = {
     type: 'ADD-POST'
@@ -42,7 +42,14 @@ export type DispatchChangePostType = {
     type: 'CHANGE-POST-TEXT'
     text: string
 }
-export type ActionType = DispatchChangePostType | DispatchAddPostType
+export type DispatchChangeMessageType = {
+    type: 'CHANGE-MESSAGE-TEXT'
+    textMessage: string
+}
+export type DispatchAddMessageType = {
+    type: 'ADD-MESSAGE'
+}
+export type ActionType = DispatchChangePostType | DispatchAddPostType | DispatchChangeMessageType | DispatchAddMessageType
 export const store:StoreType  = {
     _state:  {
         profilePage: {
@@ -65,7 +72,8 @@ export const store:StoreType  = {
                 {id: 1, message: 'i understand'},
                 {id: 2, message: 'i understand you'},
                 {id: 3, message: 'i see you'},
-            ]
+            ],
+            newMessageText: 'NewMessage',
         },
     },
     getState () {
@@ -88,24 +96,37 @@ export const store:StoreType  = {
                 this._rerenderEntireTree(this._state)
                 break;
             }
+            case "ADD-MESSAGE":{
+                let newMessage = {id: Math.random() + 1, message: this._state.dialogPage.newMessageText}
+                this._state.dialogPage.messageData.push(newMessage)
+                this._state.dialogPage.newMessageText = ''
+                this._rerenderEntireTree(this._state)
+                break;
+            }
+            case "CHANGE-MESSAGE-TEXT":{
+                this._state.dialogPage.newMessageText = action.textMessage
+                this._rerenderEntireTree(this._state)
+                break;
+            }
+
 
         }
     },
 
-    addNewPost () {
-        let newPost = {message: this._state.profilePage.newPost, likeCount: 0, id: Math.random() + 1}
-        this._state.profilePage.postData.push(newPost)
-        this._state.profilePage.newPost = ''
-        this._rerenderEntireTree(this._state)
-    },
-    changePostText(text: string) {
-        this._state.profilePage.newPost = text
-        this._rerenderEntireTree(this._state)
-    },
 
     subscribe (observer: (state: StateType) => void)  {
         this._rerenderEntireTree =  observer
     },
 }
-
-
+export const addPostAC = (): DispatchAddPostType => {
+    return {type: 'ADD-POST'}
+}
+export const changePostTextAC = (text: string):DispatchChangePostType => {
+    return {type: 'CHANGE-POST-TEXT',text: text}
+}
+export const addMessageAC = (): DispatchAddMessageType => {
+    return {type: "ADD-MESSAGE"}
+}
+export const changeMessageTextAC = (textMessage: string): DispatchChangeMessageType => {
+    return {type:"CHANGE-MESSAGE-TEXT", textMessage: textMessage}
+}
