@@ -52,6 +52,7 @@ export type DispatchAddMessageType = {
     type: 'ADD-MESSAGE'
 }
 export type ActionType = DispatchChangePostType | DispatchAddPostType | DispatchChangeMessageType | DispatchAddMessageType
+
 export const store:StoreType  = {
     _state:  {
         profilePage: {
@@ -87,12 +88,11 @@ export const store:StoreType  = {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogPage =  dialogReducer(this._state.dialogPage, action)
         this._rerenderEntireTree(this._state)
-        },
+    },
     subscribe (observer: (state: StateType) => void)  {
         this._rerenderEntireTree =  observer
     },
-    }
-
+}
 
 
 
