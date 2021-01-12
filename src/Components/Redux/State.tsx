@@ -1,4 +1,6 @@
 import React from "react";
+import {profileReducer} from "./profileReducer";
+import {dialogReducer} from "./dialogReducer";
 
 
 export type PostType = {
@@ -82,51 +84,16 @@ export const store:StoreType  = {
     _rerenderEntireTree  (state: StateType)  {
     },
     dispatch (action:ActionType ) {
-        switch (action.type) {
-            case 'ADD-POST': {
-                let newPost = {message: this._state.profilePage.newPost, likeCount: 0, id: Math.random() + 1}
-                this._state.profilePage.postData.push(newPost)
-                this._state.profilePage.newPost = ''
-                this._rerenderEntireTree(this._state)
-                break;
-            }
-
-            case 'CHANGE-POST-TEXT': {
-                this._state.profilePage.newPost = action.text
-                this._rerenderEntireTree(this._state)
-                break;
-            }
-            case "ADD-MESSAGE":{
-                let newMessage = {id: Math.random() + 1, message: this._state.dialogPage.newMessageText}
-                this._state.dialogPage.messageData.push(newMessage)
-                this._state.dialogPage.newMessageText = ''
-                this._rerenderEntireTree(this._state)
-                break;
-            }
-            case "CHANGE-MESSAGE-TEXT":{
-                this._state.dialogPage.newMessageText = action.textMessage
-                this._rerenderEntireTree(this._state)
-                break;
-            }
-
-
-        }
-    },
-
-
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogPage =  dialogReducer(this._state.dialogPage, action)
+        this._rerenderEntireTree(this._state)
+        },
     subscribe (observer: (state: StateType) => void)  {
         this._rerenderEntireTree =  observer
     },
-}
-export const addPostAC = (): DispatchAddPostType => {
-    return {type: 'ADD-POST'}
-}
-export const changePostTextAC = (text: string):DispatchChangePostType => {
-    return {type: 'CHANGE-POST-TEXT',text: text}
-}
-export const addMessageAC = (): DispatchAddMessageType => {
-    return {type: "ADD-MESSAGE"}
-}
-export const changeMessageTextAC = (textMessage: string): DispatchChangeMessageType => {
-    return {type:"CHANGE-MESSAGE-TEXT", textMessage: textMessage}
-}
+    }
+
+
+
+
+

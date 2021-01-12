@@ -3,13 +3,12 @@ import s from './Dialogs.module.css'
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message"
 import {
-    addMessageAC,
-    changeMessageTextAC,
     DialogType,
     DispatchAddMessageType,
     DispatchChangeMessageType,
     MessageType
 } from "../Redux/State";
+import {addMessageAC, changeMessageTextAC} from "../Redux/dialogReducer";
 
 type DialogPropsType = {
     dialogs: Array<DialogType>

@@ -2,7 +2,7 @@ import React from "react";
 import s from './MyPosts.module.css'
 import Posts from "./Post/Posts";
 import {ProfilePriosType} from "../Profile";
-import {addPostAC, changePostTextAC} from "../../Redux/State";
+import {addPostAC, changePostTextAC} from "../../Redux/profileReducer";
 
 
 const MyPosts = (props: ProfilePriosType) => {
