@@ -1,25 +1,29 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import Posts from "./Post/Posts";
-import {ProfilePriosType} from "../Profile";
-import {addPostAC, changePostTextAC} from "../../Redux/profileReducer";
+import {ProfilePropsType} from "../Profile";
+import {DialogType, PostType} from "../../Redux/State";
 
+type MyPostsPropsType = {
+    addPost: () => void
+    updateNewPostText: (text: string) => void
+    posts: Array<PostType>
+    newPost: string
+}
 
-const MyPosts = (props: ProfilePriosType) => {
+const MyPosts = (props: MyPostsPropsType) => {
 
     let postElement = props.posts.map((p) => {
         return < Posts message={p.message} likeCount={p.likeCount} key={p.id} />
     })
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
-
-            props.dispatch(addPostAC())
-
+            props.addPost()
     }
     const changePost = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-                props.dispatch(changePostTextAC(text))
+                props.updateNewPostText(text)
         }
     }
     return <div className={s.content}>

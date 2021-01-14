@@ -31,7 +31,6 @@ export type StateType = {
 }
 export type StoreType = {
     _state: StateType
-
     subscribe: (observer: (state: StateType) => void) => void
     getState: () => StateType
     _rerenderEntireTree: (state: StateType) => void
