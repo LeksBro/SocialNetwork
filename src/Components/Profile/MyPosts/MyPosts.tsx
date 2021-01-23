@@ -1,8 +1,8 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import Posts from "./Post/Posts";
-import {ProfilePropsType} from "../Profile";
-import {DialogType, PostType} from "../../Redux/State";
+
+import {PostType} from "../../Redux/State";
 
 type MyPostsPropsType = {
     addPost: () => void

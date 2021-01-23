@@ -3,10 +3,13 @@ import App from "./App";
 import { store} from "./Components/Redux/redux-store";
 import React from "react";
 import {StateType} from "./Components/Redux/State";
+import {Provider} from "react-redux";
 
 export const rerenderEntireTree = (state:StateType) => {
     ReactDOM.render(
-        <App store={store}  />,
+        <Provider store={store} >
+        <App />,
+        </Provider>,
         document.getElementById('root')
     );
 }
