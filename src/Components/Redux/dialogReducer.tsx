@@ -18,15 +18,18 @@ export const dialogReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case "ADD-MESSAGE":{
             let newMessage = {id: Math.random() + 1, message: state.newMessageText}
-          state.messageData.push(newMessage)
-          state.newMessageText = ''
-           return state
+            return {
+                ...state,
+                messageData: [...state.messageData, newMessage],
+                newMessageText: ''
+            }
 
         }
         case "CHANGE-MESSAGE-TEXT":{
-            state.newMessageText = action.textMessage
-
-          return state
+            return {
+                ...state,
+                newMessageText: action.textMessage
+            }
         }
         default:
             return state
