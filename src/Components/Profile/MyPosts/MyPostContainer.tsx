@@ -6,7 +6,7 @@ import {DispatchAddPostType, DispatchChangePostType, PostType, StateType} from "
 
 type dispatchAddPostType = (addPostAC: DispatchAddPostType) => void
 type dispatchUpdateNewPostType = (changePostTextAC:  DispatchChangePostType) => void
-type dispatchType = dispatchAddPostType & dispatchUpdateNewPostType
+type dispatchAllType = dispatchAddPostType & dispatchUpdateNewPostType
 type MapDispatchToPropsType = {
     updateNewPostText: (text: string) => void
     addPost: () => void
@@ -22,7 +22,7 @@ return {
     newPost: state.profilePage.newPost
 }
 }
-const mapDispatchToProps = (dispatch: dispatchType):MapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: dispatchAllType):MapDispatchToPropsType => {
     return{
         updateNewPostText:  (text: string) => {
 

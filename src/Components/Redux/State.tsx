@@ -1,6 +1,5 @@
 import React from "react";
-import {profileReducer} from "./profileReducer";
-import {dialogReducer} from "./dialogReducer";
+import {UsersType} from "./userReduser";
 
 
 export type PostType = {
@@ -28,6 +27,7 @@ export type ProfilePageType = {
 export type StateType = {
     profilePage: ProfilePageType
     dialogPage: DialogPageType
+    usersPage: UsersType
 }
 export type StoreType = {
     _state: StateType
@@ -52,7 +52,8 @@ export type DispatchAddMessageType = {
 }
 export type ActionType = DispatchChangePostType | DispatchAddPostType | DispatchChangeMessageType | DispatchAddMessageType
 
-export const store:StoreType  = {
+/*
+export const store  = {
     _state:  {
         profilePage: {
             postData: [
@@ -96,3 +97,4 @@ export const store:StoreType  = {
 
 
 
+*/
