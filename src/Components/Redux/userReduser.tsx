@@ -5,10 +5,10 @@ export type UsersType = {
 export type UserType = {
     id: number
     followed: boolean,
-    fullName: string
+    name: string
     status: string
     location: LocationType
-    photoUrl: string
+    photos: string
 }
 type LocationType = {
     city: string
