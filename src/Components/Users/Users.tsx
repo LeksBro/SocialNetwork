@@ -10,13 +10,17 @@ type UsersPropsType = {
     users: Array<UserType>
 }
 function Users(props: UsersPropsType) {
-    if (props.users.length === 0){
-        axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUsers(response.data.items)
-        })
+    let getUsers = () => {
+        if (props.users.length === 0){
+            axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.setUsers(response.data.items)
+            })
+        }
     }
 
+
 return <div>
+    <button onClick={getUsers}>GetUsers</button>
     {props.users.map(user => {
         return (
            <div key={user.id}>
