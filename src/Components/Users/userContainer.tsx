@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import Users from "./Users";
 import {StateType} from "../Redux/State";
 import {followAC, FollowACType, SetUSerACType, setUsersAC, unfollowAC, UnFollowACType, UserType} from "../Redux/userReduser";
+import Users from "./Users";
 type DispatchFollowType = (followAC: FollowACType) => void
 type DispatchUnfollowType = (unfollowAC: UnFollowACType) => void
 type DispatchSetUsersType = (setUsersAC: SetUSerACType) => void

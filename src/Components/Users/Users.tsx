@@ -9,21 +9,20 @@ type UsersPropsType = {
     setUsers: (users: Array<UserType>) => void
     users: Array<UserType>
 }
-function Users(props: UsersPropsType) {
-    let getUsers = () => {
-        if (props.users.length === 0){
-            axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                props.setUsers(response.data.items)
-            })
-        }
+class Users extends React.Component<UsersPropsType>  {
+    constructor(props: UsersPropsType) {
+        super(props);
+        axios.get(' https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
+ render() {
+        return <div>
 
-return <div>
-    <button onClick={getUsers}>GetUsers</button>
-    {props.users.map(user => {
-        return (
-           <div key={user.id}>
+            {this.props.users.map(user => {
+                return (
+                    <div key={user.id}>
                <span>
                    <div>
                        <img className={s.img} src={user.photos.small != null? user.photos.small: userPhoto } alt="image"/>
@@ -31,17 +30,17 @@ return <div>
                    <div>
                        {user.followed
                            ? <button onClick={() => {
-                       props.unfollow(user.id)
-                       }
-                       }>Follow</button>
+                               this.props.unfollow(user.id)
+                           }
+                           }>Follow</button>
                            : <button onClick={() => {
-                       props.follow(user.id)
-                       }
-                       }>Unfollow</button> }
+                               this.props.follow(user.id)
+                           }
+                           }>Unfollow</button> }
 
                    </div>
                </span>
-               <span>
+                        <span>
                    <span>
                        <div>{user.name}</div>
                        <div>{user.status}</div>
@@ -52,9 +51,14 @@ return <div>
 
                    </span>
                </span>
-           </div>
-        )
-    })}
-</div>
+                    </div>
+                )
+            })}
+        </div>
+    }
+
+
+
+
 }
 export default Users
