@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../../Users/userContainer.module.css";
+import s from "./Preloader.module.css";
 const Preloader = () => {
     return <>
          <div className={s['lds-roller']}>
