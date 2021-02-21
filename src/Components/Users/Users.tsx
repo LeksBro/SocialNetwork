@@ -1,5 +1,5 @@
 import {UserType} from "../Redux/userReduser";
-import s from "./Users.module.css";
+import s from "./userContainer.module.css";
 import userPhoto from "../../Assepts/images/ava.png";
 import React from "react";
 
