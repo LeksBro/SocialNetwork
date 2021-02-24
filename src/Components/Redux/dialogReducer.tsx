@@ -1,4 +1,5 @@
-import {ActionType, DialogPageType, DispatchAddMessageType, DispatchChangeMessageType} from "./State";
+import {DialogPageType, DispatchAddMessageType, DispatchChangeMessageType} from "./State";
+import {ActionType} from "./profileReducer";
 let initialState: DialogPageType =   {
     dialogData: [
         {id: 1, name: 'Sasha'},

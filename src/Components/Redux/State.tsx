@@ -1,5 +1,8 @@
 import React from "react";
 import {UsersType} from "./userReduser";
+import {ActionType, ProfilePageType} from "./profileReducer";
+import {ProfileType} from "../Profile/ProfileContainer";
+
 
 
 export type PostType = {
@@ -20,10 +23,7 @@ export type DialogPageType = {
     messageData: Array<MessageType>
     newMessageText: string
 }
-export type ProfilePageType = {
-    postData: Array<PostType>
-    newPost: string
-}
+
 export type StateType = {
     profilePage: ProfilePageType
     dialogPage: DialogPageType
@@ -36,13 +36,7 @@ export type StoreType = {
     _rerenderEntireTree: (state: StateType) => void
     dispatch: (action: ActionType ) => void
 }
-export type DispatchAddPostType = {
-    type: 'ADD-POST'
-}
-export type DispatchChangePostType = {
-    type: 'CHANGE-POST-TEXT'
-    text: string
-}
+
 export type DispatchChangeMessageType = {
     type: 'CHANGE-MESSAGE-TEXT'
     textMessage: string
@@ -50,7 +44,6 @@ export type DispatchChangeMessageType = {
 export type DispatchAddMessageType = {
     type: 'ADD-MESSAGE'
 }
-export type ActionType = DispatchChangePostType | DispatchAddPostType | DispatchChangeMessageType | DispatchAddMessageType
 
 /*
 export const store  = {

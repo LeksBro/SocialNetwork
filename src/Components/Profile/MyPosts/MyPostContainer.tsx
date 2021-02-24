@@ -1,8 +1,8 @@
 import React from "react";
-import {addPostAC, changePostTextAC} from "../../Redux/profileReducer";
+import {addPostAC, changePostTextAC, DispatchAddPostType, DispatchChangePostType} from "../../Redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {DispatchAddPostType, DispatchChangePostType, PostType, StateType} from "../../Redux/State";
+import {PostType, StateType} from "../../Redux/State";
 
 type dispatchAddPostType = (addPostAC: DispatchAddPostType) => void
 type dispatchUpdateNewPostType = (changePostTextAC:  DispatchChangePostType) => void
@@ -25,7 +25,6 @@ return {
 const mapDispatchToProps = (dispatch: dispatchAllType):MapDispatchToPropsType => {
     return{
         updateNewPostText:  (text: string) => {
-
             dispatch(changePostTextAC(text))
         },
         addPost: () => {
