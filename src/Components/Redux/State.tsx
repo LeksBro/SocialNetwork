@@ -1,10 +1,7 @@
 import React from "react";
 import {UsersType} from "./userReduser";
 import {ActionType, ProfilePageType} from "./profileReducer";
-import {ProfileType} from "../Profile/ProfileContainer";
-
-
-
+import {AuthStateType} from "./auth-Reducer";
 export type PostType = {
     message: string
     likeCount: number
@@ -28,6 +25,7 @@ export type StateType = {
     profilePage: ProfilePageType
     dialogPage: DialogPageType
     usersPage: UsersType
+    auth: AuthStateType
 }
 export type StoreType = {
     _state: StateType
