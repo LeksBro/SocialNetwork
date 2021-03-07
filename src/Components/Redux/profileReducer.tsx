@@ -4,6 +4,7 @@ import {
 
 } from "./State";
 import {ProfileType} from "../Profile/ProfileContainer";
+import {usersAPI} from "../API/API";
 export type ProfilePageType = {
     postData: Array<PostType>
     newPost: string
@@ -29,7 +30,6 @@ export const profileReducer = (state = initialState, action: ActionType) => {
                 newPost: ''
             }
         }
-
         case 'CHANGE-POST-TEXT': {
             return {
                 ...state,
@@ -39,7 +39,6 @@ export const profileReducer = (state = initialState, action: ActionType) => {
         case "SET_USER_PROFILE": {
             return {...state, profile: action.profile}
         }
-
         default:
             return state
     }
@@ -65,3 +64,11 @@ export type DispatchChangePostType = {
     text: string
 }
 export type ActionType = DispatchChangePostType | DispatchAddPostType | setUserProfileType |DispatchChangeMessageType | DispatchAddMessageType
+export const getUserProfile = (userId: string) => {
+    return (dispatch: any) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}

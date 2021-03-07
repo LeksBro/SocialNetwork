@@ -1,4 +1,5 @@
 import React from "react";
+import {authApi} from "../API/API";
 let initialState = {
     userID: null ,
     email: null,
@@ -49,3 +50,16 @@ export type setUserDataType = {
 }
 type AllActionType = setUserDataType
 export default authReducer
+export const getUserData = () => {
+    return (dispatch: any) => {
+        authApi.me()
+            .then(response => {
+                let userID = response.data.data.id
+                let { email, login} = response.data.data
+                if (response.data.resultCode === 0){
+                    dispatch(setAuthUserData({userID, email, login}))
+                }
+
+            })
+    }
+}

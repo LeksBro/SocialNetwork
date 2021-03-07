@@ -1,10 +1,8 @@
-import {UserType} from "../Redux/userReduser";
+import { UserType} from "../Redux/userReduser";
 import s from "./userContainer.module.css";
 import userPhoto from "../../Assepts/images/ava.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {setFollow, setUnfollow} from "../API/API";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -37,7 +35,6 @@ const Users = (props: UsersPropsType) => {
 
         })}
 
-
         {props.users.map(user => {
             return (
                 <div key={user.id}>
@@ -51,24 +48,12 @@ const Users = (props: UsersPropsType) => {
                    <div>
                        {user.followed
                            ? <button disabled={props.folowingInProgress.some(id => id === user.id)} onClick={() => {
-                               props.toggleIsFolowingProgress(true, user.id)
-                              setUnfollow(user.id).then(data => {
-                                   if (data.resultCode === 0) {
-                                       props.unfollow(user.id)
-                                   }
-                                   props.toggleIsFolowingProgress(false,user.id)
-                               })
+                               props.unfollow(user.id)
                            }
                            }>Follow</button>
 
                            : <button disabled={props.folowingInProgress.some(id => id === user.id)} onClick={() => {
-                               props.toggleIsFolowingProgress(true, user.id)
-                               setFollow(user.id).then(data => {
-                                   if (data.resultCode === 0) {
-                                       props.follow(user.id)
-                                   }
-                               props.toggleIsFolowingProgress(false, user.id)
-                               })
+                               props.follow(user.id)
 
                            }
                            }>Unfollow</button>}
