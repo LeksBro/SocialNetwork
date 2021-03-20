@@ -6,6 +6,7 @@ import {getUserProfile} from "../Redux/profileReducer";
 import {StateType} from "../Redux/State";
 import {Redirect, RouteComponentProps, withRouter} from "react-router";
 import {withAuthRedirect} from "../Hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type ContactsType = {
     facebook: string
@@ -67,6 +68,10 @@ const mapStateToProps = (state:StateType): MapStateToPropsType  => {
       profile: state.profilePage.profile,
   }
 }
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType,MapDispatchToPropsType,{}, StateType >(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
 
-export default withAuthRedirect (connect<MapStateToPropsType,MapDispatchToPropsType,{}, StateType >(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent))
+
