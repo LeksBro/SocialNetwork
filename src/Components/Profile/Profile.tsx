@@ -5,7 +5,7 @@ import {PostContainer} from "./MyPosts/MyPostContainer";
 import {MapStateToPropsType} from "./ProfileContainer";
 
 const Profile = (props: MapStateToPropsType) => {
-
+debugger
     return <div className={s.Content}>
            < ProfileInfo profile={props.profile} />
             < PostContainer />
