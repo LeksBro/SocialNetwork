@@ -27,8 +27,14 @@ class ProfileStatus extends React.Component<ProfileStatusType>{
             status: e.currentTarget.value
         })
 }
+componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>) {
+        if (prevProps.status !==this.props.status){
+        this.setState({
+            status: this.props.status
+        })
+}}
 
-render() {
+    render() {
    return <div>
        {!this.state.editMod &&
        <div><span onDoubleClick={this.activeEditMod}>{this.props.status || '-----'}</span></div>}
