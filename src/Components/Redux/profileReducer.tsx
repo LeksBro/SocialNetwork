@@ -1,13 +1,12 @@
 import {
     DispatchAddMessageType,
-    DispatchChangeMessageType, PostType,
+    PostType,
 
 } from "./State";
 import {ProfileType} from "../Profile/ProfileContainer";
 import {profileIPI, usersAPI} from "../API/API";
 export type ProfilePageType = {
     postData: Array<PostType>
-    newPost: string
     profile: ProfileType | null
     status: string
 }
@@ -18,25 +17,18 @@ let initialState: ProfilePageType = {
         {message: 'hi', likeCount: 0, id: 2},
         {message: 'good morning', likeCount: 22, id: 3},
     ],
-    newPost: 'It-Kamasutra',
     profile:  null,
     status: ''
 }
 export const profileReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case 'ADD-POST': {
-            let newPost = {message: state.newPost, likeCount: 0, id: Math.random() + 1}
             return {
                 ...state,
-                postData: [...state.postData, newPost],
-                newPost: ''
+                postData: state.postData.map(post =>
+                    ({...post,...{message:action.text, likeCount: 0, id: Math.random() + 1}}))
             }
-        }
-        case 'CHANGE-POST-TEXT': {
-            return {
-                ...state,
-                newPost: action.text
-            }
+
         }
         case "SET_USER_PROFILE": {
             return {...state, profile: action.profile}
@@ -48,8 +40,8 @@ export const profileReducer = (state = initialState, action: ActionType) => {
             return state
     }
 }
-export const addPostAC = (): DispatchAddPostType => {
-    return {type: 'ADD-POST'}
+export const addPostAC = (text: string): DispatchAddPostType => {
+    return {type: 'ADD-POST',text}
 }
 export const changePostTextAC = (text: string):DispatchChangePostType => {
     return {type: 'CHANGE-POST-TEXT',text: text}
@@ -66,6 +58,7 @@ export type setUserProfileType = {
 }
 export type DispatchAddPostType = {
     type: 'ADD-POST'
+    text: string
 }
 export type DispatchChangePostType = {
     type: 'CHANGE-POST-TEXT'
@@ -76,10 +69,8 @@ export type SetStatusProfileType = {
     status: string
 }
 export type ActionType =
-      DispatchChangePostType
     | DispatchAddPostType
     | setUserProfileType
-    | DispatchChangeMessageType
     | DispatchAddMessageType
     | SetStatusProfileType
 export const getUserProfile = (userId: string) => {

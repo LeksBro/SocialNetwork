@@ -1,47 +1,61 @@
-import React, {ChangeEvent} from "react";
-import s from './Dialogs.module.css'
-import Dialog from "./Dialog/Dialog";
-import Message from "./Message/Message"
-import {DialogType, MessageType} from "../Redux/State";
-import {Redirect} from "react-router";
+    import React from "react";
+    import s from './Dialogs.module.css'
+    import Dialog from "./Dialog/Dialog";
+    import Message from "./Message/Message"
+    import {DialogType, MessageType} from "../Redux/State";
+    import {useFormik} from "formik";
 
+    type DialogPropsType = {
+        addMessage: (text: string) => void
+        changeMessageText: (text: string) => void
+        dialogs: Array<DialogType>
+        messages: Array<MessageType>
+        newMessageText: string
+    }
 
-type DialogPropsType = {
-    addMessage: () => void
-    changeMessageText: (text: string) => void
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    newMessageText: string
-}
-
-const Dialogs = (props: DialogPropsType) => {
-
+    const Dialogs = (props: DialogPropsType) => {
     let dialogElement = props.dialogs.map((d) => {
         return < Dialog id={d.id} name={d.name}/>
     })
     let messageElement = props.messages.map((m) => {
         return < Message key={m.id} message={m.message}/>
     })
-    const addMessage = () => {
-        props.addMessage()
-    }
-    const changeMessageText = (event: ChangeEvent<HTMLTextAreaElement>) => {
 
-        props.changeMessageText(event.currentTarget.value)
+    const addMessage = (text: string) => {
+        props.addMessage(text)
     }
+
+
+    const formik = useFormik({
+        initialValues: {
+            text: '',
+        },
+        onSubmit: values => {
+            addMessage(values.text)
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
+
     return <div className={s.dialogs}>
         <div className={s.dialogItem}>
-            {dialogElement}
+             {dialogElement}
         </div>
         <div className={s.messageItem}>
-            {messageElement}
+             {messageElement}
         </div>
-        <div>
+        <form onSubmit={formik.handleSubmit}>
             <div>
-                <textarea onChange={changeMessageText} value={props.newMessageText}></textarea>
+                <textarea
+                    name='text'
+                    onChange={formik.handleChange}
+                    value={formik.values.text}
+                >
+                </textarea>
+
             </div>
-            <button onClick={addMessage}>Add Message</button>
+            <button>Add Message</button>
+        </form>
         </div>
-    </div>
-}
-export default Dialogs
+    }
+
+    export default Dialogs

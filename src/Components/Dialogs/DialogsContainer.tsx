@@ -1,22 +1,20 @@
 import React from "react";
-import {addMessageAC, changeMessageTextAC} from "../Redux/dialogReducer";
+import {addMessageAC} from "../Redux/dialogReducer";
 import Dialogs from "./Dialogs";
-import {DialogType, DispatchAddMessageType, DispatchChangeMessageType, MessageType, StateType} from "../Redux/State";
+import {DialogType, DispatchAddMessageType, MessageType, StateType} from "../Redux/State";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 import {compose} from "redux";
 type AddMessagesType = (addMessageAC: DispatchAddMessageType) => void
-type ChangeMessagesType = (changeMessageTextAC: DispatchChangeMessageType) => void
-type allDispatchDialogType = AddMessagesType & ChangeMessagesType
+type allDispatchDialogType = AddMessagesType
 
 type MapDispatchToPropsType = {
-    addMessage: () => void
-    changeMessageText: (text: string) => void
+    addMessage: (text: string) => void
+
 }
 type MapStateToPropsType = {
     dialogs:  Array<DialogType>
     messages: Array<MessageType>
-    newMessageText: string
 
 
 }
@@ -24,22 +22,17 @@ const mapStateToProps = (state:StateType ): MapStateToPropsType => {
     return{
         dialogs: state.dialogPage.dialogData,
         messages: state.dialogPage.messageData,
-        newMessageText: state.dialogPage.newMessageText,
+
     }
 }
 const mapDispatchToProps = (dispatch: allDispatchDialogType ): MapDispatchToPropsType => {
     return{
-        addMessage: () => {
-            dispatch(addMessageAC())
+        addMessage: (text) => {
+            dispatch(addMessageAC(text))
         },
-        changeMessageText: (text: string) => {
-            dispatch(changeMessageTextAC(text))
-        }
     }
 }
 export default compose<React.ComponentType>(
-    connect<MapStateToPropsType,MapDispatchToPropsType, {}, StateType>(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect
-)(Dialogs)
+    connect<MapStateToPropsType,MapDispatchToPropsType, {}, StateType>(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
 
 

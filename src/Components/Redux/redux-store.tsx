@@ -4,7 +4,6 @@ import {dialogReducer} from "./dialogReducer";
 import {userReducer} from "./userReduser";
 import authReducer from "./auth-Reducer";
 import thunkMiddleware from "redux-thunk"
-import { reducer as formReducer } from 'redux-form'
 
 type ReducerType = typeof reducers
 export type AppStateType = ReturnType<ReducerType>

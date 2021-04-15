@@ -1,4 +1,4 @@
-import {DialogPageType, DispatchAddMessageType, DispatchChangeMessageType} from "./State";
+import {DialogPageType, DispatchAddMessageType} from "./State";
 import {ActionType} from "./profileReducer";
 let initialState: DialogPageType =   {
     dialogData: [
@@ -13,33 +13,23 @@ let initialState: DialogPageType =   {
         {id: 2, message: 'i understand you'},
         {id: 3, message: 'i see you'},
     ],
-        newMessageText: 'NewMessage',
+
 }
 export const dialogReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
-        case "ADD-MESSAGE":{
-            let newMessage = {id: Math.random() + 1, message: state.newMessageText}
+        case "ADD-MESSAGE": {
             return {
                 ...state,
-                messageData: [...state.messageData, newMessage],
-                newMessageText: ''
+                messageData: [...state.messageData, {id: Math.random() +1, message: action.text} ],
             }
 
-        }
-        case "CHANGE-MESSAGE-TEXT":{
-            return {
-                ...state,
-                newMessageText: action.textMessage
-            }
         }
         default:
             return state
-    }
 
+
+    }
 }
-export const addMessageAC = (): DispatchAddMessageType => {
-    return {type: "ADD-MESSAGE"}
-}
-export const changeMessageTextAC = (textMessage: string): DispatchChangeMessageType => {
-    return {type:"CHANGE-MESSAGE-TEXT", textMessage: textMessage}
+export const addMessageAC = (text: string): DispatchAddMessageType => {
+    return {type: "ADD-MESSAGE", text}
 }

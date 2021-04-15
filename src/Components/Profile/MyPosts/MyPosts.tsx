@@ -3,12 +3,11 @@ import s from './MyPosts.module.css'
 import Posts from "./Post/Posts";
 
 import {PostType} from "../../Redux/State";
+import {useFormik} from "formik";
 
 type MyPostsPropsType = {
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    addPost: (text: string) => void
     posts: Array<PostType>
-    newPost: string
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -16,24 +15,34 @@ const MyPosts = (props: MyPostsPropsType) => {
     let postElement = props.posts.map((p) => {
         return < Posts message={p.message} likeCount={p.likeCount} key={p.id} />
     })
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
-    const addPost = () => {
-            props.addPost()
-    }
-    const changePost = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value
-                props.updateNewPostText(text)
-        }
-    }
-    return <div className={s.content}>
-        <div className={s.block}>
-            <div>
-            <textarea onChange={changePost} value={props.newPost} ref={newPostElement}></textarea>
-            </div>
-            <button onClick={addPost}>AddPost</button>
 
-        </div>
+    const addPost = (text: string) => {
+            props.addPost(text)
+    }
+
+    const formik = useFormik({
+        initialValues: {
+            text: '',
+        },
+        onSubmit: values => {
+            addPost(formik.values.text)
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
+
+    return <div className={s.content}>
+        <form onSubmit={formik.handleSubmit} className={s.block}>
+            <div>
+            <textarea
+                name={'text'}
+                onChange={formik.handleChange}
+                value={formik.values.text}></textarea>
+            </div>
+            <button
+                type={'submit'}
+                >AddPost</button>
+
+        </form>
         <div className={s.Posts}>
             New Post
         </div>

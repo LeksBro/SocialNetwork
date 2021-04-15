@@ -18,7 +18,6 @@ export type MessageType = {
 export type DialogPageType = {
     dialogData: Array<DialogType>
     messageData: Array<MessageType>
-    newMessageText: string
 }
 
 export type StateType = {
@@ -34,13 +33,9 @@ export type StoreType = {
     _rerenderEntireTree: (state: StateType) => void
     dispatch: (action: ActionType ) => void
 }
-
-export type DispatchChangeMessageType = {
-    type: 'CHANGE-MESSAGE-TEXT'
-    textMessage: string
-}
 export type DispatchAddMessageType = {
     type: 'ADD-MESSAGE'
+    text: string
 }
 
 /*
