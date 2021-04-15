@@ -42,3 +42,4 @@ const MyPosts = (props: MyPostsPropsType) => {
 
 }
 export default MyPosts
+

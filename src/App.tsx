@@ -7,9 +7,9 @@ import {Route} from "react-router-dom"
 import {UserContainer} from "./Components/Users/userContainer";
 
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import Login from "./Components/Login/Login";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import Login from "./Components/Login/Login";
 
 
 
