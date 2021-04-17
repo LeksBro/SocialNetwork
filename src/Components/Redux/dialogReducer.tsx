@@ -20,7 +20,7 @@ export const dialogReducer = (state = initialState, action: ActionType) => {
         case "ADD-MESSAGE": {
             return {
                 ...state,
-                messageData: [...state.messageData, {id: Math.random() +1, message: action.text} ],
+                messageData: [...state.messageData, {id: 4, message: action.text} ],
             }
 
         }

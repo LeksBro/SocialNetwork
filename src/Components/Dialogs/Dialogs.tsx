@@ -4,6 +4,8 @@
     import Message from "./Message/Message"
     import {DialogType, MessageType} from "../Redux/State";
     import {useFormik} from "formik";
+    import {validate} from "./DialogsValidate";
+
 
     type DialogPropsType = {
         addMessage: (text: string) => void
@@ -30,9 +32,10 @@
         initialValues: {
             text: '',
         },
+        validate,
         onSubmit: values => {
-            addMessage(values.text)
-            alert(JSON.stringify(values, null, 2));
+                addMessage(values.text)
+                alert(JSON.stringify(values, null, 2));
         },
     });
 
@@ -45,15 +48,15 @@
         </div>
         <form onSubmit={formik.handleSubmit}>
             <div>
-                <textarea
-                    name='text'
-                    onChange={formik.handleChange}
-                    value={formik.values.text}
-                >
-                </textarea>
+               <textarea
+                   {...formik.getFieldProps('text')}
+               />
+                {formik.touched.text && formik.errors.text ? (
+                    <div style={{color: "red"}}>{formik.errors.text}</div>
+                ) : null}
 
             </div>
-            <button>Add Message</button>
+            <button type="submit">Add Message</button>
         </form>
         </div>
     }

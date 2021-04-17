@@ -1,6 +1,6 @@
 import React from "react";
 import {useFormik} from "formik";
-
+import {validate} from "./LoginValidate";
 const Login = () => {
     return <div>
         <h1>Login</h1>
@@ -9,48 +9,52 @@ const Login = () => {
 
 }
 export default Login
-export type FormDataType = {
-    login: string
-    password: string
-    rememberMe: boolean
-}
+
+
 export const LoginForm  = () => {
+
     const formik  = useFormik({
+
         initialValues: {
-            email: '',
+            login: '',
             password: '',
             rememberMe: ''
         },
+        validate,
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
         },
+
     });
 
 
     return <form onSubmit={formik.handleSubmit}>
         <div>
             <input
-                placeholder={'Login'}
-                name='email'
-                onChange={formik.handleChange}
-                value={formik.values.email}
+                type={'text'}
+                {...formik.getFieldProps('login')}
             />
+            {formik.touched.login && formik.errors.login ? (
+                <div style={{color: "red"}}>{formik.errors.login}</div>
+            ) : null}
         </div>
         <div>
             <input
-                placeholder={'Password'}
-                name='password'
-                onChange={formik.handleChange}
-                value={formik.values.password}
+                type={'text'}
+                {...formik.getFieldProps('password')}
             />
+           {formik.touched.password && formik.errors.password ? (
+                <div style={{color: "red"}}>{formik.errors.password}</div>
+            ) : null}
         </div>
         <div>
             <input
-                name='rememberMe'
-                onChange={formik.handleChange}
-                value={formik.values.rememberMe}
-                type={'checkbox'}/> remember me
-
+                type={'checkbox'}
+                {...formik.getFieldProps('rememberMe')}
+            />
+                {formik.touched.rememberMe && formik.errors.rememberMe ? (
+                <div style={{color: "red"}}>{formik.errors.rememberMe}</div>
+            ) : null}
         </div>
         <div>
             <button type="submit">Login</button>

@@ -4,51 +4,47 @@ import Posts from "./Post/Posts";
 
 import {PostType} from "../../Redux/State";
 import {useFormik} from "formik";
-
+import {validate} from "./MyPostsValidate";
 type MyPostsPropsType = {
     addPost: (text: string) => void
     posts: Array<PostType>
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
-
     let postElement = props.posts.map((p) => {
-        return < Posts message={p.message} likeCount={p.likeCount} key={p.id} />
+        return < Posts message={p.message} likeCount={p.likeCount} key={p.id}/>
     })
-
     const addPost = (text: string) => {
-            props.addPost(text)
+        props.addPost(text)
     }
 
     const formik = useFormik({
         initialValues: {
-            text: '',
+            text: ''
         },
+        validate,
         onSubmit: values => {
-            addPost(formik.values.text)
+            addPost(values.text)
             alert(JSON.stringify(values, null, 2));
         },
     });
 
-    return <div className={s.content}>
-        <form onSubmit={formik.handleSubmit} className={s.block}>
+    return <div>
+        <h3>My Post</h3>
+        <form onSubmit={formik.handleSubmit}>
+            < textarea
+                {...formik.getFieldProps('text')}
+            />
+            {formik.touched.text && formik.errors.text ? (
+                <div style={{color: "red"}}>{formik.errors.text}</div>
+            ) : null}
             <div>
-            <textarea
-                name={'text'}
-                onChange={formik.handleChange}
-                value={formik.values.text}></textarea>
+                <button type="submit">Submit</button>
             </div>
-            <button
-                type={'submit'}
-                >AddPost</button>
-
         </form>
-        <div className={s.Posts}>
-            New Post
+        <div className={s.content}>
+            {postElement}
         </div>
-        {postElement}
     </div>
-
 }
 export default MyPosts
-

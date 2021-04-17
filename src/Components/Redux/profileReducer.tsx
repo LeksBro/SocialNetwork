@@ -25,8 +25,7 @@ export const profileReducer = (state = initialState, action: ActionType) => {
         case 'ADD-POST': {
             return {
                 ...state,
-                postData: state.postData.map(post =>
-                    ({...post,...{message:action.text, likeCount: 0, id: Math.random() + 1}}))
+                postData: [...state.postData, {message:action.text,likeCount: 0, id: Math.random() + 1}]
             }
 
         }
