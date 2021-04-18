@@ -24,8 +24,6 @@ const App = () => {
                     < Route exact path='/dialogs' render={() => <DialogsContainer />}/>
                     < Route path= '/users' render={() => <UserContainer /> } />
                     < Route path={'/login'} render={() => <Login />} />
-
-
                 </div>
             </div>
         </BrowserRouter>

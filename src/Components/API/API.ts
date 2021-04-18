@@ -41,8 +41,23 @@ export const profileIPI = {
     },
 }
 export const authApi = {
-me () {
-   return  instance.get(`auth/me`)
+    me() {
+        return instance.get(`auth/me`, {})
+    },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<LoginType<{userId: number}>>('/auth/login', {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete<LoginType>('/auth/login')
+    }
+
+
 }
+type LoginType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+
 }
+
 

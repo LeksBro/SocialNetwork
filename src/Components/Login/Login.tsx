@@ -1,41 +1,54 @@
 import React from "react";
 import {useFormik} from "formik";
 import {validate} from "./LoginValidate";
-const Login = () => {
+import {connect} from "react-redux";
+import {loginThunkCreator} from "../Redux/auth-Reducer";
+import {StateType} from "../Redux/State";
+import {Redirect} from "react-router";
+
+type MapDispatchToPropsType ={
+    loginThunkCreator: (email: string, password: string, rememberMe: boolean)=> void
+}
+type LoginPropsType = {
+    loginThunkCreator: (email: string, password: string, rememberMe: boolean )=> void
+    isAuth: boolean
+}
+const Login = (props: LoginPropsType) => {
+
+    if (props.isAuth){
+        return  <Redirect to={'/profile'} />
+        }
+
     return <div>
         <h1>Login</h1>
-        <LoginForm />
+        <LoginForm {...props} />
     </div>
-
 }
-export default Login
-
-
-export const LoginForm  = () => {
-
+export const LoginForm  = (props: LoginPropsType) => {
     const formik  = useFormik({
 
         initialValues: {
-            login: '',
+            email: '',
             password: '',
-            rememberMe: ''
+            rememberMe: false
         },
         validate,
         onSubmit: values => {
+            debugger
+            props.loginThunkCreator(values.email, values.password, values.rememberMe)
             alert(JSON.stringify(values, null, 2));
         },
 
     });
 
-
     return <form onSubmit={formik.handleSubmit}>
         <div>
             <input
                 type={'text'}
-                {...formik.getFieldProps('login')}
+                {...formik.getFieldProps('email')}
             />
-            {formik.touched.login && formik.errors.login ? (
-                <div style={{color: "red"}}>{formik.errors.login}</div>
+            {formik.touched.email && formik.errors.email ? (
+                <div style={{color: "red"}}>{formik.errors.email}</div>
             ) : null}
         </div>
         <div>
@@ -61,3 +74,12 @@ export const LoginForm  = () => {
         </div>
     </form>
 }
+type MapStateToPropsType = {
+    isAuth: boolean
+}
+const mapStateToProps = (state: StateType): MapStateToPropsType => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+export default connect<MapStateToPropsType,MapDispatchToPropsType,{}, StateType>(mapStateToProps,{loginThunkCreator})(Login)
