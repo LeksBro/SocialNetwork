@@ -42,9 +42,6 @@ export const profileReducer = (state = initialState, action: ActionType) => {
 export const addPostAC = (text: string): DispatchAddPostType => {
     return {type: 'ADD-POST',text}
 }
-export const changePostTextAC = (text: string):DispatchChangePostType => {
-    return {type: 'CHANGE-POST-TEXT',text: text}
-}
 export const setUserProfile = (profile: {}) => {
     return{type:'SET_USER_PROFILE', profile: profile}
 }
@@ -57,10 +54,6 @@ export type setUserProfileType = {
 }
 export type DispatchAddPostType = {
     type: 'ADD-POST'
-    text: string
-}
-export type DispatchChangePostType = {
-    type: 'CHANGE-POST-TEXT'
     text: string
 }
 export type SetStatusProfileType = {

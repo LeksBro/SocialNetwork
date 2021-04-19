@@ -4,7 +4,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile, getUserStatus, updateUserStatus} from "../Redux/profileReducer";
 import {StateType} from "../Redux/State";
-import {Redirect, RouteComponentProps, withRouter} from "react-router";
+import {RouteComponentProps, withRouter} from "react-router";
 import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -41,6 +41,8 @@ type MapDispatchToPropsType = {
 export type MapStateToPropsType = {
     profile: ProfileType | null
     status: string
+    authorizedUserId: string | null
+    isAuth: boolean
 }
 type PathParamsType = {
     userId: string
@@ -74,7 +76,9 @@ const mapStateToProps = (state:StateType): MapStateToPropsType  => {
   return {
       profile: state.profilePage.profile,
       status: state.profilePage.status,
-  }
+      authorizedUserId: state.auth.userID,
+      isAuth: state.auth.isAuth,
+  } as MapStateToPropsType
 }
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType,MapDispatchToPropsType,{}, StateType >(mapStateToProps, {getUserProfile,getUserStatus,updateUserStatus}),

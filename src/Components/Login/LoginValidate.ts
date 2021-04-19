@@ -5,7 +5,7 @@ export type ValidateType = {
     password?: string
     rememberMe?: string
 }
-export const validate = (values: { email: string; password: string | any[]; rememberMe:  boolean; }) => {
+export const validate = (values: { email: string; password?: string; }) => {
     const errors:ValidateType = {};
     if (!values.email) {
         errors.email = 'Required';

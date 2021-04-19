@@ -34,7 +34,6 @@ export const LoginForm  = (props: LoginPropsType) => {
         },
         validate,
         onSubmit: values => {
-            debugger
             props.loginThunkCreator(values.email, values.password, values.rememberMe)
             alert(JSON.stringify(values, null, 2));
         },

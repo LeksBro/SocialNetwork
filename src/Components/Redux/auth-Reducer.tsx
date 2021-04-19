@@ -1,6 +1,7 @@
 
 import {authApi} from "../API/API";
 import {Dispatch} from "redux";
+import {validate} from "../Login/LoginValidate";
 let initialState :AuthStateType = {
     userID: null ,
     email: null,
@@ -44,23 +45,21 @@ type AllActionType = setUserDataType
 export default authReducer
 
 
-export const getUserData = () => (dispatch: Dispatch<AllActionType>) => {
-        authApi.me()
+export const getUserData = () => (dispatch: Dispatch<setUserDataType>) => {
+    debugger
+       return  authApi.me()
             .then(response => {
-
                 let {userID, email, login} = response.data.data
                 if (response.data.resultCode === 0){
                     dispatch(setAuthUserData({userID, email, login, isAuth:true}))
                 }
-
             })
     }
 
 export const loginThunkCreator = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
-        authApi.login(email, password, rememberMe)
+             authApi.login(email, password, rememberMe)
             .then((response) => {
                 if (response.data.resultCode === 0){
-                    debugger
                     dispatch(getUserData())
                 }
             })
