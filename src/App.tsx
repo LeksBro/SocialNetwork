@@ -14,7 +14,8 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeTC} from "./Components/Redux/app-reducer";
 import {AppStateType} from "./Components/Redux/redux-store";
-import Preloader from "./Components/Common/Preloader/Preloader";
+import NewPreloader from "./Components/Common/Preloader/Preloader";
+
 
 type MapDispatchPropsAppType = {
     initializeTC: () => void
@@ -29,10 +30,8 @@ class App extends React.Component<AppPropsType>{
     }
 
     render () {
-        debugger
         if (!this.props.initialized){
-            debugger
-            return <Preloader />
+            return <NewPreloader />
         }
         return  <BrowserRouter>
             <div className="App-wrapper">

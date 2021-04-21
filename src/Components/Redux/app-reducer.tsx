@@ -26,7 +26,6 @@ export const setInitializedAC = () => {
 export type SetInitializedType = ReturnType<typeof setInitializedAC>
 
 export const initializeTC = () => (dispatch: any) => {
-    debugger
     let promise = dispatch(getUserData())
     promise.then(() => {
         dispatch(setInitializedAC())

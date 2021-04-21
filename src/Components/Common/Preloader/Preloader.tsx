@@ -1,17 +1,14 @@
+
 import React from "react";
-import s from "./Preloader.module.css";
+import style from './Preloader.module.css'
 const Preloader = () => {
-    return <>
-         <div className={s['lds-roller']}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+    return<>
+    <div className={style.preloader}>
+        <div className={style.preloader__row}>z
+            <div className={style.preloader__item}/>
+            <div className={style.preloader__item}/>
         </div>
+    </div>
         </>
 }
 export default Preloader

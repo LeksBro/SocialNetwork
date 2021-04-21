@@ -133,11 +133,12 @@ type UserReducerActionType = FollowACType  |  UnFollowACType | SetUSerACType
     | SetCurrentPageACType | setTotalUserCountACType | setToggleIsFetchingType
     | toggleIsFolowingProgressType;
 
-export const getUsersThunkCreater = (currentPage: number,pageSize: number) => {
+export const requestUsersThunkCreater = (page: number, pageSize: number) => {
 
  return   (dispatch: any) => {
         dispatch(setIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setCurrentPage(page))
+        usersAPI.getUsers(page, pageSize).then(data => {
             dispatch(setIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUserCount(data.totalCount))

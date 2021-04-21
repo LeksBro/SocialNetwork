@@ -1,8 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import {StateType} from "../Redux/State";
 import {
-    acceptFollow, getUsersThunkCreater, onPageSizeThunkCreater,
+    acceptFollow, requestUsersThunkCreater, onPageSizeThunkCreater,
     setCurrentPage,
     setIsFetching,
     setTotalUserCount,
@@ -12,6 +11,15 @@ import {
 } from "../Redux/userReduser";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../Redux/user-selectors";
+import {AppStateType} from "../Redux/redux-store";
 type mapDispatchPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
@@ -79,6 +87,7 @@ class UsersContainer extends React.Component<UsersApiComponentPropsType> {
                 ? <Preloader />
                 : null}
             <Users
+                isFetching = {this.props.isFetching}
                 users={this.props.users}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
@@ -100,20 +109,20 @@ class UsersContainer extends React.Component<UsersApiComponentPropsType> {
 
 
 
-const mapStateToProps = (state: StateType): mapStateToPropsType => {
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    folowingInProgress: state.usersPage.folowingInProgress
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    folowingInProgress: getFollowingProgress(state)
 }
 }
 
 
-export const UserContainer = connect<mapStateToPropsType,mapDispatchPropsType,{} ,StateType>(mapStateToProps,
+export const UserContainer = connect<mapStateToPropsType,mapDispatchPropsType,{} ,AppStateType>(mapStateToProps,
     {follow: acceptFollow, unfollow: acceptUnfollow, setUsers,
         setCurrentPage, setTotalUserCount, setIsFetching,
-        toggleIsFolowingProgress, getUsersThunkCreater,onPageSizeThunkCreater})(UsersContainer);
+        toggleIsFolowingProgress, getUsersThunkCreater: requestUsersThunkCreater,onPageSizeThunkCreater})(UsersContainer);
 
