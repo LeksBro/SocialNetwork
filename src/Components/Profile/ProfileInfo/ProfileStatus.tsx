@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-type ProfileStatusType = {
+export type ProfileStatusType = {
     status: string
     updateStatus: (status: string) => void
 }

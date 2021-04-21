@@ -15,7 +15,10 @@ export type UserType = {
     name: string
     status: string
     location: LocationType
-    photos: string
+    photos: {
+        small: null | string
+        large: null | string
+    }
 }
 type LocationType = {
     city: string

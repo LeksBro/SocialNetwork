@@ -17,7 +17,7 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers
+    getUsers, getUsersSelector
 } from "../Redux/user-selectors";
 import {AppStateType} from "../Redux/redux-store";
 type mapDispatchPropsType = {
@@ -111,7 +111,7 @@ class UsersContainer extends React.Component<UsersApiComponentPropsType> {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 return {
-    users: getUsers(state),
+    users: getUsersSelector(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),

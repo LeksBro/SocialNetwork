@@ -3,7 +3,7 @@ import s from "./userContainer.module.css";
 import userPhoto from "../../Assepts/images/ava.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import Preloader from "../Common/Preloader/Preloader";
+
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -27,7 +27,7 @@ const Users = (props: UsersPropsType) => {
         pages.push(i)
     }
     return <div>
-        
+
         {pages.map(p => {
 
             return <span
